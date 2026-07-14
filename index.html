@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico de Carreira — Time de Relacionamento ICOM TV</title>
+<meta name="description" content="Avaliação de maturidade profissional do Plano de Carreira da área de Relacionamento da ICOM TV." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-900: #0a1f3d;
+  --navy-800: #0f2a52;
+  --navy-700: #14356a;
+  --blue-accent: #2f6fed;
+  --blue-accent-light: #e8f0fe;
+  --white: #ffffff;
+  --gray-50: #f6f8fb;
+  --gray-100: #eef1f6;
+  --gray-200: #e2e6ee;
+  --gray-300: #cbd2e0;
+  --gray-500: #7c8698;
+  --gray-700: #4a5468;
+  --text: #101828;
+  --text-muted: #5b6472;
+  --success: #1c9a6c;
+  --success-bg: #e5f6ef;
+  --warning: #b9770e;
+  --warning-bg: #fdf2e2;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 8px 24px rgba(10, 31, 61, 0.08);
+  --shadow-lg: 0 20px 48px rgba(10, 31, 61, 0.14);
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--gray-50);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0 0 8px; line-height: 1.25; color: var(--navy-900); }
+p { line-height: 1.6; }
+.muted { color: var(--text-muted); }
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.container.narrow { max-width: 720px; }
+
+/* ---------- Topbar ---------- */
+.topbar {
+  background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+  color: var(--white);
+  padding: 18px 0;
+}
+.topbar-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.brand { display: flex; align-items: baseline; gap: 12px; font-weight: 700; }
+.brand-mark { font-size: 20px; letter-spacing: 0.5px; }
+.brand-mark-accent { color: #6fa2ff; }
+.brand-sep { opacity: 0.35; }
+.brand-title { font-weight: 600; font-size: 16px; opacity: 0.95; }
+.topbar-sub { margin-left: auto; font-size: 13px; opacity: 0.75; }
+
+/* ---------- Screens ---------- */
+.screen { display: none; padding: 56px 0 72px; animation: fadeIn 0.4s ease; }
+.screen.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 13px 24px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--blue-accent); color: var(--white); box-shadow: 0 4px 14px rgba(47, 111, 237, 0.35); }
+.btn-primary:hover:not(:disabled) { background: #2559c7; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--navy-800); border: 1px solid var(--gray-300); }
+.btn-ghost:hover { background: var(--gray-100); }
+.btn-link { background: none; color: var(--blue-accent); padding: 13px 8px; }
+.btn-link:hover { text-decoration: underline; }
+.btn-lg { padding: 16px 32px; font-size: 16px; }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+
+/* ---------- Hero / Landing ---------- */
+.hero { text-align: left; }
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue-accent);
+  background: var(--blue-accent-light);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.hero h1 { font-size: 40px; font-weight: 800; }
+.lead { font-size: 17px; color: var(--text-muted); max-width: 620px; }
+
+.hero-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 32px 0;
+}
+.fact {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.fact-icon { font-size: 22px; }
+.fact strong { display: block; font-size: 14px; color: var(--navy-900); }
+.fact span:not(.fact-icon) { font-size: 12.5px; color: var(--text-muted); }
+
+.hero-about {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.hero-about h2 { font-size: 18px; }
+.hero-about p { color: var(--text-muted); font-size: 15px; }
+
+.resume-banner {
+  background: var(--white);
+  border: 1px solid var(--blue-accent);
+  border-left: 5px solid var(--blue-accent);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+.resume-banner p { margin: 4px 0 0; font-size: 14px; color: var(--text-muted); }
+.resume-banner-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.hidden { display: none !important; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+/* ---------- Form ---------- */
+.form-card { margin-top: 8px; }
+.field { margin-bottom: 20px; }
+.field label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--navy-900); }
+.required { color: #d64545; }
+.optional { color: var(--text-muted); font-weight: 400; font-size: 12.5px; }
+.field input, .field select {
+  width: 100%;
+  font-family: var(--font);
+  font-size: 15px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--text);
+  transition: border-color 0.15s ease;
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 3px var(--blue-accent-light);
+}
+.field input.invalid { border-color: #d64545; }
+.field-error { display: block; color: #d64545; font-size: 12.5px; margin-top: 4px; min-height: 16px; }
+.form-actions { display: flex; justify-content: space-between; margin-top: 8px; }
+
+/* ---------- Progress ---------- */
+.progress-wrap { margin-bottom: 24px; }
+.progress-info { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+.progress-bar-track { height: 8px; background: var(--gray-200); border-radius: 999px; overflow: hidden; }
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue-accent), #6fa2ff);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+/* ---------- Question card ---------- */
+.question-card { min-height: 260px; animation: fadeIn 0.3s ease; }
+.question-text { font-size: 22px; font-weight: 700; margin-bottom: 26px; margin-top: 4px; }
+
+.likert-options { display: flex; flex-direction: column; gap: 10px; }
+.likert-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  background: var(--white);
+}
+.likert-option:hover { border-color: var(--blue-accent); background: var(--blue-accent-light); }
+.likert-option.selected { border-color: var(--blue-accent); background: var(--blue-accent-light); }
+.likert-option .likert-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--gray-300);
+  flex-shrink: 0;
+  position: relative;
+}
+.likert-option.selected .likert-dot { border-color: var(--blue-accent); background: var(--blue-accent); }
+.likert-option.selected .likert-dot::after {
+  content: "";
+  position: absolute; inset: 4px;
+  background: var(--white); border-radius: 50%;
+}
+.likert-option span.likert-label { font-size: 15px; font-weight: 500; color: var(--text); }
+
+.assessment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.save-confirm {
+  text-align: center;
+  color: var(--success);
+  background: var(--success-bg);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 14px;
+}
+
+/* ---------- Results ---------- */
+.result-header { display: flex; }
+.result-header-main { width: 100%; }
+.result-cargo-line { display: flex; align-items: center; gap: 14px; margin: 10px 0 6px; flex-wrap: wrap; }
+.result-cargo-badge {
+  background: var(--navy-900);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+.result-cargo-percent { font-size: 28px; font-weight: 800; color: var(--blue-accent); }
+.result-status { font-size: 14.5px; font-weight: 600; padding: 8px 14px; border-radius: var(--radius-sm); display: inline-block; }
+.result-status.transicao { background: var(--warning-bg); color: var(--warning); }
+.result-status.consolidado { background: var(--success-bg); color: var(--success); }
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+}
+.radar-wrap { max-width: 480px; margin: 0 auto; }
+
+.ranking-list { display: flex; flex-direction: column; gap: 14px; }
+.ranking-item { display: flex; align-items: center; gap: 12px; }
+.ranking-item .ranking-name { width: 130px; font-size: 13.5px; font-weight: 600; flex-shrink: 0; }
+.ranking-item .ranking-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+.ranking-item .ranking-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blue-accent), #6fa2ff); }
+.ranking-item.is-main .ranking-fill { background: linear-gradient(90deg, var(--navy-900), var(--blue-accent)); }
+.ranking-item .ranking-value { width: 48px; text-align: right; font-size: 13.5px; font-weight: 700; color: var(--navy-900); flex-shrink: 0; }
+
+.resumo-texto { white-space: pre-line; font-size: 15px; color: var(--text); }
+.resumo-cols { margin-top: 14px; }
+.resumo-acoes { padding-left: 20px; margin: 8px 0 0; }
+.resumo-acoes li { margin-bottom: 8px; font-size: 14.5px; color: var(--text); }
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--gray-200);
+  padding: 20px 0;
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 13px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .hero h1 { font-size: 30px; }
+  .hero-facts { grid-template-columns: 1fr; }
+  .result-grid { grid-template-columns: 1fr; }
+  .topbar-sub { margin-left: 0; }
+  .assessment-actions { flex-direction: column; align-items: stretch; }
+  .assessment-actions .btn { width: 100%; }
+  .form-actions { flex-direction: column-reverse; gap: 10px; }
+  .form-actions .btn { width: 100%; }
+  .result-actions { flex-direction: column; }
+  .result-actions .btn { width: 100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">ICOM<span class="brand-mark-accent">TV</span></span>
+      <span class="brand-sep">|</span>
+      <span class="brand-title">Diagnóstico de Carreira</span>
+    </div>
+    <div class="topbar-sub">Time de Relacionamento</div>
+  </div>
+</div>
+
+<main id="app">
+
+  <!-- ===================== LANDING ===================== -->
+  <section id="screen-landing" class="screen active">
+    <div class="container narrow">
+
+      <div id="resume-banner" class="resume-banner hidden">
+        <div>
+          <strong>Você tem uma avaliação em andamento.</strong>
+          <p id="resume-banner-text"></p>
+        </div>
+        <div class="resume-banner-actions">
+          <button id="btn-resume" class="btn btn-primary btn-sm">Continuar de onde parei</button>
+          <button id="btn-discard" class="btn btn-ghost btn-sm">Começar do zero</button>
+        </div>
+      </div>
+
+      <div class="hero">
+        <span class="eyebrow">Plano de Carreira · Relacionamento</span>
+        <h1>Diagnóstico de Carreira</h1>
+        <p class="lead">
+          Descubra qual é o seu nível de maturidade profissional dentro do Plano de Carreira
+          da área de Relacionamento da ICOM TV — de Consultor Jr a Coordenador.
+        </p>
+
+        <div class="hero-facts">
+          <div class="fact">
+            <span class="fact-icon">⏱</span>
+            <div>
+              <strong>8 a 10 minutos</strong>
+              <span>tempo estimado de conclusão</span>
+            </div>
+          </div>
+          <div class="fact">
+            <span class="fact-icon">📋</span>
+            <div>
+              <strong>54 perguntas</strong>
+              <span>comportamentais e técnicas</span>
+            </div>
+          </div>
+          <div class="fact">
+            <span class="fact-icon">📊</span>
+            <div>
+              <strong>Resultado imediato</strong>
+              <span>radar de competências + PDF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-about">
+          <h2>Como funciona</h2>
+          <p>
+            Esta não é uma avaliação de certo ou errado. As perguntas exploram comportamentos do
+            dia a dia — organização, atendimento, liderança, visão estratégica, gestão de
+            indicadores, entre outros — e cada resposta contribui de forma diferente para cada um
+            dos cinco cargos do plano de carreira: <strong>Consultor Jr, Consultor Pleno,
+            Consultor Sênior, Supervisor e Coordenador.</strong>
+          </p>
+          <p>
+            Ao final, você recebe o seu percentual de aderência a cada cargo, um radar de
+            competências, um ranking completo e um resumo com recomendações práticas para
+            acelerar sua evolução.
+          </p>
+        </div>
+
+        <button id="btn-start" class="btn btn-primary btn-lg">Iniciar Diagnóstico</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== USER INFO ===================== -->
+  <section id="screen-userinfo" class="screen">
+    <div class="container narrow">
+      <div class="card form-card">
+        <span class="eyebrow">Antes de começar</span>
+        <h2>Conte um pouco sobre você</h2>
+        <p class="muted">Essas informações aparecem no seu resultado e no PDF gerado ao final.</p>
+
+        <form id="form-userinfo" novalidate>
+          <div class="field">
+            <label for="input-nome">Nome completo <span class="required">*</span></label>
+            <input type="text" id="input-nome" name="nome" required autocomplete="name" placeholder="Ex: Maria Silva" />
+            <span class="field-error" id="error-nome"></span>
+          </div>
+
+          <div class="field">
+            <label for="input-email">E-mail <span class="optional">(opcional)</span></label>
+            <input type="email" id="input-email" name="email" autocomplete="email" placeholder="voce@icomtv.com.br" />
+          </div>
+
+          <div class="field">
+            <label for="input-tempo">Tempo de empresa <span class="optional">(opcional)</span></label>
+            <select id="input-tempo" name="tempo">
+              <option value="">Selecione...</option>
+              <option value="menos-6-meses">Menos de 6 meses</option>
+              <option value="6-meses-1-ano">De 6 meses a 1 ano</option>
+              <option value="1-2-anos">De 1 a 2 anos</option>
+              <option value="2-4-anos">De 2 a 4 anos</option>
+              <option value="mais-4-anos">Mais de 4 anos</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="btn-back-landing" class="btn btn-ghost">Voltar</button>
+            <button type="submit" class="btn btn-primary">Iniciar Avaliação</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ASSESSMENT ===================== -->
+  <section id="screen-assessment" class="screen">
+    <div class="container narrow">
+
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span id="progress-label">Pergunta 1 de 54</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="card question-card">
+        <h2 id="question-text" class="question-text"></h2>
+
+        <div id="likert-options" class="likert-options" role="radiogroup"></div>
+      </div>
+
+      <div class="assessment-actions">
+        <button id="btn-prev" class="btn btn-ghost">← Anterior</button>
+        <button id="btn-save-exit" class="btn btn-link">Salvar e continuar depois</button>
+        <button id="btn-next" class="btn btn-primary" disabled>Próxima →</button>
+      </div>
+      <p id="save-confirm" class="save-confirm hidden">Progresso salvo! Você pode fechar esta página e continuar depois pelo mesmo link.</p>
+    </div>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <section id="screen-results" class="screen">
+    <div class="container">
+
+      <div id="pdf-content">
+        <div class="result-header card">
+          <div class="result-header-main">
+            <span class="eyebrow">Resultado do Diagnóstico</span>
+            <h2 id="result-nome">—</h2>
+            <div class="result-cargo-line">
+              <span class="result-cargo-badge" id="result-cargo-nome">—</span>
+              <span class="result-cargo-percent" id="result-cargo-percent">—</span>
+            </div>
+            <p class="result-status" id="result-status"></p>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="card">
+            <h3>Radar de Competências</h3>
+            <div class="radar-wrap">
+              <canvas id="radar-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Ranking por Cargo</h3>
+            <div id="ranking-list" class="ranking-list"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Resumo Personalizado</h3>
+          <p id="resumo-texto" class="resumo-texto"></p>
+
+          <div class="resumo-cols">
+            <div>
+              <h4>Ações práticas para acelerar sua evolução</h4>
+              <ul id="resumo-acoes" class="resumo-acoes"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button id="btn-download-pdf" class="btn btn-primary">Baixar resultado em PDF</button>
+        <button id="btn-restart" class="btn btn-ghost">Reiniciar avaliação</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>ICOM TV · Plano de Carreira — Time de Relacionamento</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+/**
+ * Base de dados do Diagnóstico de Carreira — Time de Relacionamento ICOM TV
+ *
+ * EDITE ESTE ARQUIVO PARA ATUALIZAR CARGOS, PERGUNTAS E PESOS.
+ *
+ * Estrutura de cada pergunta:
+ *   id:       identificador único (não reutilize ids já usados em avaliações salvas)
+ *   texto:    enunciado da pergunta (escala Likert: Nunca..Sempre)
+ *   categoria: uma das chaves de CATEGORIAS (usada no gráfico radar)
+ *   pesos:    relevância da pergunta para cada cargo, de 0 (não relevante) a 3 (muito relevante)
+ *
+ * Pontuação: cada resposta vale de 0 (Nunca) a 4 (Sempre).
+ * Para cada cargo, a aderência (%) = soma(resposta * peso) / soma(4 * peso), somente
+ * considerando perguntas com peso > 0 para aquele cargo.
+ */
+
+const CATEGORIAS = {
+  comunicacao:    { label: "Comunicação" },
+  lideranca:      { label: "Liderança" },
+  organizacao:    { label: "Organização" },
+  estrategia:     { label: "Estratégia" },
+  analise:        { label: "Análise" },
+  relacionamento: { label: "Relacionamento" },
+  gestao:         { label: "Gestão" },
+  autonomia:      { label: "Autonomia" },
+  inovacao:       { label: "Inovação" },
+};
+
+// Ordem de carreira: usada para saber qual é "o próximo cargo" de cada nível.
+const CARGOS = [
+  {
+    id: "jr",
+    ordem: 1,
+    nome: "Consultor Jr",
+    resumo: "Base da operação de relacionamento: atendimento, organização e briefing.",
+    competencias: [
+      "Vivência em atendimento",
+      "Organização",
+      "Perfil analítico",
+      "Capacidade de realizar briefing",
+      "Organização de demandas",
+    ],
+    atividades: [
+      "Atendimento ao cliente",
+      "Direcionamento de solicitações",
+      "Gestão de conteúdos",
+      "Comunicação com clientes",
+    ],
+  },
+  {
+    id: "pl",
+    ordem: 2,
+    nome: "Consultor Pleno",
+    resumo: "Consultoria mais analítica, apoio ao time e contribuição direta para metas.",
+    competencias: [
+      "Capacidade analítica",
+      "Conhecimento das rotinas",
+      "Marketing interno",
+      "Direcionamento estratégico ao cliente",
+      "Contribuição para metas",
+    ],
+    atividades: [
+      "Consultorias",
+      "Implantação de processos",
+      "Apoio ao time",
+      "Padrinho de novos colaboradores",
+      "Resolução de problemas",
+    ],
+  },
+  {
+    id: "sr",
+    ordem: 3,
+    nome: "Consultor Sênior",
+    resumo: "Referência técnica: propõe soluções, forma pessoas e responde por indicadores.",
+    competencias: [
+      "Gestão de conflitos",
+      "Formação da equipe",
+      "Propõe soluções",
+      "Responsável por indicadores",
+      "Domínio de Marketing Interno",
+    ],
+    atividades: [
+      "Treinamentos",
+      "Desenvolvimento de processos",
+      "Criação de indicadores",
+      "Apoio à liderança",
+      "Busca de inovação",
+    ],
+  },
+  {
+    id: "sup",
+    ordem: 4,
+    nome: "Supervisor",
+    resumo: "Liderança formal da equipe: desenvolvimento de pessoas e gestão por indicadores.",
+    competencias: [
+      "Liderança",
+      "Desenvolvimento de pessoas",
+      "Gestão por indicadores",
+      "Desenvolvimento de processos",
+      "Especialista em Marketing Interno",
+    ],
+    atividades: [
+      "Gestão da equipe",
+      "Desenvolvimento de metas",
+      "Análise de performance",
+      "Implantação de melhorias",
+      "Gestão operacional",
+    ],
+  },
+  {
+    id: "coord",
+    ordem: 5,
+    nome: "Coordenador",
+    resumo: "Visão estratégica da área: planejamento, cultura e integração entre times.",
+    competencias: [
+      "Planejamento estratégico",
+      "Benchmarking",
+      "Gestão estratégica",
+      "Roadmap",
+      "Desenvolvimento organizacional",
+      "Cultura",
+    ],
+    atividades: [
+      "Desenvolvimento semestral da área",
+      "Estratégia",
+      "Gestão dos indicadores",
+      "Integração entre áreas",
+      "Desenvolvimento da cultura",
+    ],
+  },
+];
+
+// pesos: { jr, pl, sr, sup, coord } — 0 a 3
+const QUESTIONS = [
+  { id: "q1",  texto: "Colegas recorrem a mim espontaneamente para pedir orientação ou conselho.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 2 } },
+  { id: "q2",  texto: "Resolvo demandas de clientes com autonomia, sem precisar recorrer a colegas mais experientes.", categoria: "relacionamento", pesos: { jr: 3, pl: 3, sr: 2, sup: 1, coord: 0 } },
+  { id: "q3",  texto: "Medeio conflitos entre colegas, ou entre cliente e equipe, buscando uma solução equilibrada.", categoria: "gestao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 2 } },
+  { id: "q4",  texto: "Acompanho indicadores (KPIs) da minha atuação de forma regular, não só quando pedem.", categoria: "gestao", pesos: { jr: 1, pl: 2, sr: 3, sup: 3, coord: 2 } },
+  { id: "q5",  texto: "Tomo decisões do dia a dia sem precisar validar cada passo com a liderança.", categoria: "autonomia", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q6",  texto: "Ajudo colegas de outras áreas mesmo quando isso não é diretamente minha função.", categoria: "relacionamento", pesos: { jr: 1, pl: 2, sr: 2, sup: 2, coord: 2 } },
+  { id: "q7",  texto: "Organizo minha rotina de forma que raramente preciso ser cobrado(a) sobre prazos.", categoria: "organizacao", pesos: { jr: 3, pl: 3, sr: 2, sup: 1, coord: 1 } },
+  { id: "q8",  texto: "Adapto minha forma de comunicar de acordo com o perfil de cada cliente ou colega.", categoria: "comunicacao", pesos: { jr: 2, pl: 3, sr: 2, sup: 1, coord: 1 } },
+  { id: "q9",  texto: "Busco ativamente referências fora da empresa para trazer novas ideias para a área.", categoria: "inovacao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q10", texto: "Construo relações de confiança duradouras com os clientes que atendo.", categoria: "relacionamento", pesos: { jr: 2, pl: 3, sr: 2, sup: 1, coord: 1 } },
+  { id: "q11", texto: "Consigo influenciar decisões da equipe mesmo sem autoridade formal para isso.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q12", texto: "Já apoiei a integração ou treinamento de novos colaboradores (padrinho/madrinha).", categoria: "lideranca", pesos: { jr: 0, pl: 2, sr: 2, sup: 2, coord: 1 } },
+  { id: "q13", texto: "Penso no impacto das minhas decisões nos resultados gerais da área, além da minha tarefa individual.", categoria: "estrategia", pesos: { jr: 1, pl: 2, sr: 3, sup: 3, coord: 3 } },
+  { id: "q14", texto: "Antes de agir, busco entender a causa raiz de um problema, não apenas o sintoma.", categoria: "analise", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q15", texto: "Reviso minhas próprias entregas buscando pontos de melhoria, mesmo sem ser solicitado.", categoria: "inovacao", pesos: { jr: 2, pl: 2, sr: 2, sup: 1, coord: 1 } },
+  { id: "q16", texto: "Domino os conceitos de marketing/publicidade aplicados às soluções que ofereço ao cliente.", categoria: "estrategia", pesos: { jr: 1, pl: 2, sr: 3, sup: 3, coord: 2 } },
+  { id: "q17", texto: "Assumo publicamente meus erros e busco corrigi-los sem esperar ser cobrado(a).", categoria: "autonomia", pesos: { jr: 2, pl: 2, sr: 2, sup: 2, coord: 2 } },
+  { id: "q18", texto: "Tomo decisões rápidas mesmo com informações incompletas, quando necessário.", categoria: "analise", pesos: { jr: 1, pl: 2, sr: 3, sup: 3, coord: 3 } },
+
+  { id: "q19", texto: "Assumo a frente em situações de equipe mesmo sem ser formalmente responsável por isso.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q20", texto: "Identifico necessidades do cliente que não foram explicitamente pedidas.", categoria: "relacionamento", pesos: { jr: 2, pl: 3, sr: 3, sup: 1, coord: 0 } },
+  { id: "q21", texto: "Mantenho a calma e conduzo bem situações de tensão com o cliente.", categoria: "gestao", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 1 } },
+  { id: "q22", texto: "Sou responsável por definir ou propor indicadores para a equipe.", categoria: "gestao", pesos: { jr: 0, pl: 0, sr: 1, sup: 3, coord: 3 } },
+  { id: "q23", texto: "Assumo responsabilidade por entregas mesmo quando não há ninguém supervisionando de perto.", categoria: "autonomia", pesos: { jr: 2, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q24", texto: "Compartilho conhecimento e boas práticas com o time de forma espontânea.", categoria: "relacionamento", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q25", texto: "Consigo dar conta de múltiplas demandas simultâneas sem perder a qualidade.", categoria: "organizacao", pesos: { jr: 2, pl: 3, sr: 3, sup: 2, coord: 1 } },
+  { id: "q26", texto: "Consigo explicar temas complexos de forma simples para quem não tem o mesmo conhecimento técnico.", categoria: "comunicacao", pesos: { jr: 1, pl: 2, sr: 3, sup: 3, coord: 2 } },
+  { id: "q27", texto: "Já propus uma melhoria de processo que gerou resultado mensurável para a equipe.", categoria: "inovacao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q28", texto: "Sou uma referência de relacionamento para clientes estratégicos ou mais complexos.", categoria: "relacionamento", pesos: { jr: 0, pl: 1, sr: 3, sup: 3, coord: 2 } },
+  { id: "q29", texto: "Minha opinião costuma ser considerada relevante nas discussões da área.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q30", texto: "Estruturo materiais ou conteúdos de treinamento para a equipe.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 2 } },
+  { id: "q31", texto: "Participo da definição de metas ou do planejamento da área para os próximos meses.", categoria: "estrategia", pesos: { jr: 0, pl: 0, sr: 1, sup: 2, coord: 3 } },
+  { id: "q32", texto: "Sou procurado(a) por colegas para ajudar a resolver problemas mais complexos.", categoria: "analise", pesos: { jr: 0, pl: 1, sr: 3, sup: 3, coord: 2 } },
+  { id: "q33", texto: "Incentivo a equipe a testar novas formas de fazer o trabalho, mesmo com risco de erro.", categoria: "inovacao", pesos: { jr: 0, pl: 0, sr: 1, sup: 3, coord: 3 } },
+  { id: "q34", texto: "Sou referência da equipe em estratégias de marketing interno para os clientes atendidos.", categoria: "estrategia", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 2 } },
+  { id: "q35", texto: "Cumpro compromissos assumidos mesmo quando surgem imprevistos.", categoria: "autonomia", pesos: { jr: 2, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q36", texto: "Considero múltiplos cenários e impactos antes de tomar decisões importantes.", categoria: "analise", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+
+  { id: "q37", texto: "Reconheço e valorizo publicamente boas entregas dos meus colegas.", categoria: "lideranca", pesos: { jr: 1, pl: 2, sr: 2, sup: 3, coord: 2 } },
+  { id: "q38", texto: "Uso experiências de atendimento como base para propor melhorias em processos internos.", categoria: "relacionamento", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 1 } },
+  { id: "q39", texto: "Ajudo a equipe a alinhar posições divergentes até chegar a um consenso.", categoria: "gestao", pesos: { jr: 0, pl: 0, sr: 2, sup: 3, coord: 2 } },
+  { id: "q40", texto: "Uso dados e indicadores para justificar decisões, não apenas percepção pessoal.", categoria: "gestao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q41", texto: "Defino minhas prioridades sem precisar que alguém as defina por mim.", categoria: "autonomia", pesos: { jr: 1, pl: 2, sr: 3, sup: 2, coord: 2 } },
+  { id: "q42", texto: "Busco alinhamento com outras áreas antes de tomar decisões que impactam o todo.", categoria: "relacionamento", pesos: { jr: 0, pl: 0, sr: 1, sup: 2, coord: 3 } },
+  { id: "q43", texto: "Estruturo fluxos ou rotinas que outras pessoas da equipe passam a seguir.", categoria: "organizacao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q44", texto: "Represento a área em conversas com outros times ou lideranças da empresa.", categoria: "comunicacao", pesos: { jr: 0, pl: 0, sr: 2, sup: 3, coord: 3 } },
+  { id: "q45", texto: "Acompanho o resultado das mudanças que implemento para validar se realmente funcionaram.", categoria: "inovacao", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q46", texto: "Consigo manter bom relacionamento mesmo com pessoas de perfil difícil.", categoria: "relacionamento", pesos: { jr: 2, pl: 2, sr: 2, sup: 2, coord: 1 } },
+  { id: "q47", texto: "Inspiro colegas a melhorar sua atuação através do meu próprio exemplo.", categoria: "lideranca", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 2 } },
+  { id: "q48", texto: "Avalio a evolução de outras pessoas e dou feedback estruturado para o desenvolvimento delas.", categoria: "lideranca", pesos: { jr: 0, pl: 0, sr: 1, sup: 3, coord: 3 } },
+  { id: "q49", texto: "Consigo antecipar mudanças de mercado e sugerir ajustes na estratégia da equipe.", categoria: "estrategia", pesos: { jr: 0, pl: 0, sr: 1, sup: 2, coord: 3 } },
+  { id: "q50", texto: "Consigo resolver problemas inéditos, para os quais não existe um processo já definido.", categoria: "analise", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q51", texto: "Ajudo a estruturar estratégias de marketing interno para diferentes perfis de cliente.", categoria: "estrategia", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q52", texto: "Sinto-me responsável pelo resultado da equipe, não apenas pelo meu resultado individual.", categoria: "autonomia", pesos: { jr: 0, pl: 1, sr: 2, sup: 3, coord: 3 } },
+  { id: "q53", texto: "Questiono processos existentes buscando formas mais eficientes de trabalhar.", categoria: "inovacao", pesos: { jr: 1, pl: 2, sr: 2, sup: 2, coord: 2 } },
+  { id: "q54", texto: "Assumo as consequências das decisões que tomo, mesmo quando dão errado.", categoria: "analise", pesos: { jr: 1, pl: 2, sr: 2, sup: 3, coord: 3 } },
+];
+
+// Escala Likert usada em todas as perguntas
+const ESCALA = [
+  { valor: 0, label: "Nunca" },
+  { valor: 1, label: "Raramente" },
+  { valor: 2, label: "Às vezes" },
+  { valor: 3, label: "Frequentemente" },
+  { valor: 4, label: "Sempre" },
+];
+
+</script>
+<script>
+/**
+ * Motor de avaliação — calcula aderência por cargo, radar de competências
+ * e o texto-resumo personalizado do resultado.
+ *
+ * Não depende de nenhuma outra parte da UI: recebe as respostas e devolve
+ * um objeto de resultado pronto para ser renderizado.
+ */
+
+const CARGO_KEYS = ["jr", "pl", "sr", "sup", "coord"];
+
+const RECOMENDACOES_POR_CATEGORIA = {
+  comunicacao: "Pratique comunicar temas complexos de forma simples, adaptando a linguagem para diferentes públicos.",
+  lideranca: "Busque orientar colegas e assumir a frente em iniciativas da equipe, mesmo sem cargo formal de liderança.",
+  organizacao: "Estruture e documente rotinas que outras pessoas da equipe possam seguir, não apenas a sua própria.",
+  estrategia: "Participe mais das discussões de planejamento e conecte suas entregas diárias aos objetivos da área.",
+  analise: "Aprofunde a investigação da causa raiz dos problemas antes de propor soluções, considerando múltiplos cenários.",
+  relacionamento: "Fortaleça vínculos de confiança com clientes e colegas de outras áreas, ampliando sua rede de relacionamento.",
+  gestao: "Acompanhe indicadores com mais regularidade e use dados para embasar suas decisões, não apenas percepção.",
+  autonomia: "Assuma mais responsabilidade por decisões do dia a dia sem esperar validação constante da liderança.",
+  inovacao: "Proponha e implemente melhorias de processo, medindo o resultado obtido depois da mudança.",
+};
+
+/** Retorna a porcentagem de aderência (0-100) de um cargo dado o conjunto de respostas. */
+function calcularAderenciaCargo(respostas, cargoId) {
+  let pontosObtidos = 0;
+  let pontosPossiveis = 0;
+  for (const pergunta of QUESTIONS) {
+    const peso = pergunta.pesos[cargoId] || 0;
+    if (peso <= 0) continue;
+    const resposta = respostas[pergunta.id];
+    if (resposta === undefined || resposta === null) continue;
+    pontosObtidos += resposta * peso;
+    pontosPossiveis += 4 * peso;
+  }
+  if (pontosPossiveis === 0) return 0;
+  return Math.round((pontosObtidos / pontosPossiveis) * 1000) / 10;
+}
+
+/** Retorna a pontuação (0-100) por categoria de competência, para o gráfico radar. */
+function calcularRadar(respostas) {
+  const somaPorCategoria = {};
+  const contagemPorCategoria = {};
+  for (const pergunta of QUESTIONS) {
+    const resposta = respostas[pergunta.id];
+    if (resposta === undefined || resposta === null) continue;
+    const cat = pergunta.categoria;
+    somaPorCategoria[cat] = (somaPorCategoria[cat] || 0) + resposta;
+    contagemPorCategoria[cat] = (contagemPorCategoria[cat] || 0) + 1;
+  }
+  const radar = {};
+  for (const cat of Object.keys(CATEGORIAS)) {
+    const soma = somaPorCategoria[cat] || 0;
+    const n = contagemPorCategoria[cat] || 0;
+    radar[cat] = n === 0 ? 0 : Math.round((soma / (n * 4)) * 1000) / 10;
+  }
+  return radar;
+}
+
+/** Monta o texto-resumo personalizado explicando o resultado. */
+function gerarResumo(nome, ranking, cargoPrincipal, cargoProximo, statusTransicao, radar) {
+  const primeiroNome = (nome || "").trim().split(" ")[0] || "Você";
+
+  const categoriasOrdenadas = Object.entries(radar).sort((a, b) => b[1] - a[1]);
+  const destaques = categoriasOrdenadas.slice(0, 3).map(([cat]) => CATEGORIAS[cat].label);
+  const desenvolver = categoriasOrdenadas.slice(-3).map(([cat]) => CATEGORIAS[cat].label).reverse();
+
+  let paragrafo1 = `${primeiroNome} apresentou maior aderência ao cargo de ${cargoPrincipal.nome} (${cargoPrincipal.percentual}%), `
+    + `com destaque para as competências de ${destaques.join(", ")}. Esse resultado reflete um perfil consistente com as atividades e `
+    + `responsabilidades esperadas para esse nível dentro do Plano de Carreira da área de Relacionamento.`;
+
+  let paragrafo2;
+  if (!cargoProximo) {
+    paragrafo2 = `Por já estar no maior nível da carreira avaliada, o foco recomendado é ampliar a maturidade estratégica e o impacto organizacional, `
+      + `consolidando ainda mais a atuação em ${destaques[0]}.`;
+  } else if (statusTransicao === "transicao") {
+    paragrafo2 = `${primeiroNome} também demonstra diversas competências esperadas para o cargo de ${cargoProximo.nome} `
+      + `(${cargoProximo.percentual}% de aderência), o que indica uma fase de transição entre os dois níveis. `
+      + `Continuar desenvolvendo ${desenvolver.join(", ")} deve acelerar essa evolução.`;
+  } else {
+    paragrafo2 = `O perfil está consolidado neste nível. Para avançar rumo a ${cargoProximo.nome}, os pontos de maior oportunidade `
+      + `de desenvolvimento são ${desenvolver.join(", ")}.`;
+  }
+
+  const acoes = desenvolver.slice(0, 3).map((label) => {
+    const chave = Object.keys(CATEGORIAS).find((k) => CATEGORIAS[k].label === label);
+    return RECOMENDACOES_POR_CATEGORIA[chave];
+  });
+
+  return {
+    texto: `${paragrafo1}\n\n${paragrafo2}`,
+    destaques,
+    desenvolver,
+    acoes,
+  };
+}
+
+/**
+ * Calcula o resultado completo da avaliação.
+ * @param {string} nome
+ * @param {Record<string, number>} respostas - map perguntaId -> valor (0-4)
+ * @returns objeto de resultado pronto para renderização
+ */
+function calcularResultado(nome, respostas) {
+  const ranking = CARGOS
+    .map((c) => ({ ...c, percentual: calcularAderenciaCargo(respostas, c.id) }))
+    .sort((a, b) => b.percentual - a.percentual);
+
+  const cargoPrincipal = ranking[0];
+  const cargoProximoObj = CARGOS.find((c) => c.ordem === cargoPrincipal.ordem + 1);
+  const cargoProximo = cargoProximoObj
+    ? { ...cargoProximoObj, percentual: calcularAderenciaCargo(respostas, cargoProximoObj.id) }
+    : null;
+
+  let statusTransicao = null;
+  if (cargoProximo) {
+    const gap = cargoPrincipal.percentual - cargoProximo.percentual;
+    statusTransicao = gap <= 15 ? "transicao" : "consolidado";
+  }
+
+  const radar = calcularRadar(respostas);
+  const resumo = gerarResumo(nome, ranking, cargoPrincipal, cargoProximo, statusTransicao, radar);
+
+  return {
+    nome,
+    ranking, // ordenado por percentual desc — para o ranking na tela de resultado
+    cargoPrincipal,
+    cargoProximo,
+    statusTransicao,
+    radar,
+    resumo,
+  };
+}
+
+</script>
+<script>
+/**
+ * Lógica de interface do Diagnóstico de Carreira.
+ * Depende de CARGOS, QUESTIONS, CATEGORIAS, ESCALA (data.js) e calcularResultado (scoring.js).
+ */
+
+const STORAGE_KEY = "icomtv_diagnostico_v1";
+
+let state = {
+  userInfo: { nome: "", email: "", tempo: "" },
+  respostas: {},
+  currentIndex: 0,
+};
+
+let radarChartInstance = null;
+let ultimoResultado = null;
+
+// ---------------------------------------------------------------------
+// Persistência (salvar / continuar depois)
+// ---------------------------------------------------------------------
+
+function salvarEstado() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    // localStorage indisponível (ex: modo privado) — segue sem salvar
+  }
+}
+
+function carregarEstadoSalvo() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function limparEstadoSalvo() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {}
+}
+
+// ---------------------------------------------------------------------
+// Navegação entre telas
+// ---------------------------------------------------------------------
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ---------------------------------------------------------------------
+// Tela inicial — banner de retomada
+// ---------------------------------------------------------------------
+
+function initLandingResumeBanner() {
+  const saved = carregarEstadoSalvo();
+  const banner = document.getElementById("resume-banner");
+  if (saved && saved.respostas && Object.keys(saved.respostas).length > 0) {
+    const nome = saved.userInfo && saved.userInfo.nome ? saved.userInfo.nome : "sua avaliação";
+    const respondidas = Object.keys(saved.respostas).length;
+    document.getElementById("resume-banner-text").textContent =
+      `${nome} — ${respondidas} de ${QUESTIONS.length} perguntas respondidas.`;
+    banner.classList.remove("hidden");
+  } else {
+    banner.classList.add("hidden");
+  }
+}
+
+document.getElementById("btn-resume").addEventListener("click", () => {
+  const saved = carregarEstadoSalvo();
+  if (!saved) return;
+  state = saved;
+  showScreen("screen-assessment");
+  renderQuestion(state.currentIndex);
+});
+
+document.getElementById("btn-discard").addEventListener("click", () => {
+  limparEstadoSalvo();
+  document.getElementById("resume-banner").classList.add("hidden");
+});
+
+document.getElementById("btn-start").addEventListener("click", () => {
+  showScreen("screen-userinfo");
+});
+
+document.getElementById("btn-back-landing").addEventListener("click", () => {
+  showScreen("screen-landing");
+});
+
+// ---------------------------------------------------------------------
+// Formulário de identificação
+// ---------------------------------------------------------------------
+
+document.getElementById("form-userinfo").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nomeInput = document.getElementById("input-nome");
+  const nome = nomeInput.value.trim();
+  const errorEl = document.getElementById("error-nome");
+
+  if (!nome) {
+    nomeInput.classList.add("invalid");
+    errorEl.textContent = "Por favor, informe seu nome completo.";
+    nomeInput.focus();
+    return;
+  }
+  nomeInput.classList.remove("invalid");
+  errorEl.textContent = "";
+
+  state.userInfo = {
+    nome,
+    email: document.getElementById("input-email").value.trim(),
+    tempo: document.getElementById("input-tempo").value,
+  };
+  state.respostas = {};
+  state.currentIndex = 0;
+  salvarEstado();
+
+  showScreen("screen-assessment");
+  renderQuestion(0);
+});
+
+// ---------------------------------------------------------------------
+// Avaliação (perguntas Likert)
+// ---------------------------------------------------------------------
+
+let avancarAutomaticoTimeout = null;
+
+function renderQuestion(index) {
+  clearTimeout(avancarAutomaticoTimeout);
+  state.currentIndex = index;
+
+  const total = QUESTIONS.length;
+  const pergunta = QUESTIONS[index];
+  const respondidas = Object.keys(state.respostas).length;
+
+  document.getElementById("progress-label").textContent = `Pergunta ${index + 1} de ${total}`;
+  document.getElementById("progress-percent").textContent = `${Math.round((respondidas / total) * 100)}%`;
+  document.getElementById("progress-bar-fill").style.width = `${(index / total) * 100}%`;
+
+  document.getElementById("question-text").textContent = pergunta.texto;
+
+  const optionsWrap = document.getElementById("likert-options");
+  optionsWrap.innerHTML = "";
+  const valorAtual = state.respostas[pergunta.id];
+
+  ESCALA.forEach((opcao) => {
+    const div = document.createElement("div");
+    div.className = "likert-option" + (valorAtual === opcao.valor ? " selected" : "");
+    div.setAttribute("role", "radio");
+    div.setAttribute("aria-checked", valorAtual === opcao.valor ? "true" : "false");
+    div.tabIndex = 0;
+    div.innerHTML = `<span class="likert-dot"></span><span class="likert-label">${opcao.label}</span>`;
+    div.addEventListener("click", () => selecionarResposta(pergunta.id, opcao.valor));
+    div.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selecionarResposta(pergunta.id, opcao.valor);
+      }
+    });
+    optionsWrap.appendChild(div);
+  });
+
+  document.getElementById("btn-prev").disabled = index === 0;
+  const btnNext = document.getElementById("btn-next");
+  btnNext.disabled = valorAtual === undefined;
+  btnNext.textContent = index === total - 1 ? "Ver Resultado →" : "Próxima →";
+
+  document.getElementById("save-confirm").classList.add("hidden");
+}
+
+function selecionarResposta(perguntaId, valor) {
+  state.respostas[perguntaId] = valor;
+  salvarEstado();
+
+  // Atualiza visual imediatamente
+  document.querySelectorAll(".likert-option").forEach((el, i) => {
+    const selected = ESCALA[i].valor === valor;
+    el.classList.toggle("selected", selected);
+    el.setAttribute("aria-checked", selected ? "true" : "false");
+  });
+  document.getElementById("btn-next").disabled = false;
+
+  const total = QUESTIONS.length;
+  const respondidas = Object.keys(state.respostas).length;
+  document.getElementById("progress-percent").textContent = `${Math.round((respondidas / total) * 100)}%`;
+
+  // Avança automaticamente após uma pequena pausa, exceto na última pergunta
+  clearTimeout(avancarAutomaticoTimeout);
+  if (state.currentIndex < total - 1) {
+    avancarAutomaticoTimeout = setTimeout(() => {
+      renderQuestion(state.currentIndex + 1);
+    }, 380);
+  }
+}
+
+document.getElementById("btn-next").addEventListener("click", () => {
+  clearTimeout(avancarAutomaticoTimeout);
+  if (state.currentIndex < QUESTIONS.length - 1) {
+    renderQuestion(state.currentIndex + 1);
+  } else {
+    finalizarAvaliacao();
+  }
+});
+
+document.getElementById("btn-prev").addEventListener("click", () => {
+  clearTimeout(avancarAutomaticoTimeout);
+  if (state.currentIndex > 0) {
+    renderQuestion(state.currentIndex - 1);
+  }
+});
+
+document.getElementById("btn-save-exit").addEventListener("click", () => {
+  salvarEstado();
+  const msg = document.getElementById("save-confirm");
+  msg.classList.remove("hidden");
+  setTimeout(() => msg.classList.add("hidden"), 3500);
+});
+
+// ---------------------------------------------------------------------
+// Resultado
+// ---------------------------------------------------------------------
+
+function finalizarAvaliacao() {
+  salvarEstado();
+  const resultado = calcularResultado(state.userInfo.nome, state.respostas);
+  // A tela precisa estar visível (display != none) antes de criar o Chart.js,
+  // senão o canvas nasce com largura/altura zero.
+  showScreen("screen-results");
+  renderResultado(resultado);
+}
+
+function renderResultado(resultado) {
+  ultimoResultado = resultado;
+  document.getElementById("result-nome").textContent = resultado.nome;
+  document.getElementById("result-cargo-nome").textContent = resultado.cargoPrincipal.nome;
+  document.getElementById("result-cargo-percent").textContent = `${resultado.cargoPrincipal.percentual}%`;
+
+  const statusEl = document.getElementById("result-status");
+  if (!resultado.cargoProximo) {
+    statusEl.textContent = "Seu perfil está consolidado no maior nível do plano de carreira avaliado.";
+    statusEl.className = "result-status consolidado";
+  } else if (resultado.statusTransicao === "transicao") {
+    statusEl.textContent = `Você está em fase de transição para o próximo nível (${resultado.cargoProximo.nome}).`;
+    statusEl.className = "result-status transicao";
+  } else {
+    statusEl.textContent = "Seu perfil está consolidado neste nível.";
+    statusEl.className = "result-status consolidado";
+  }
+
+  // Radar
+  const radarLabels = Object.keys(CATEGORIAS).map((k) => CATEGORIAS[k].label);
+  const radarValues = Object.keys(CATEGORIAS).map((k) => resultado.radar[k]);
+  const ctx = document.getElementById("radar-chart").getContext("2d");
+  if (radarChartInstance) radarChartInstance.destroy();
+  radarChartInstance = new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: radarLabels,
+      datasets: [{
+        label: resultado.nome,
+        data: radarValues,
+        backgroundColor: "rgba(47, 111, 237, 0.18)",
+        borderColor: "#2f6fed",
+        borderWidth: 2,
+        pointBackgroundColor: "#0a1f3d",
+        pointRadius: 3,
+      }],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: { stepSize: 20, backdropColor: "transparent", color: "#7c8698" },
+          grid: { color: "#e2e6ee" },
+          angleLines: { color: "#e2e6ee" },
+          pointLabels: { color: "#101828", font: { size: 12, weight: "600" } },
+        },
+      },
+      plugins: { legend: { display: false } },
+    },
+  });
+
+  // Ranking
+  const rankingEl = document.getElementById("ranking-list");
+  rankingEl.innerHTML = "";
+  resultado.ranking.forEach((cargo) => {
+    const isMain = cargo.id === resultado.cargoPrincipal.id;
+    const item = document.createElement("div");
+    item.className = "ranking-item" + (isMain ? " is-main" : "");
+    item.innerHTML = `
+      <span class="ranking-name">${cargo.nome}</span>
+      <span class="ranking-track"><span class="ranking-fill" style="width:${cargo.percentual}%"></span></span>
+      <span class="ranking-value">${cargo.percentual}%</span>
+    `;
+    rankingEl.appendChild(item);
+  });
+
+  // Resumo
+  document.getElementById("resumo-texto").textContent = resultado.resumo.texto;
+  const acoesEl = document.getElementById("resumo-acoes");
+  acoesEl.innerHTML = "";
+  resultado.resumo.acoes.forEach((acao) => {
+    const li = document.createElement("li");
+    li.textContent = acao;
+    acoesEl.appendChild(li);
+  });
+}
+
+document.getElementById("btn-restart").addEventListener("click", () => {
+  if (!confirm("Isso vai apagar suas respostas atuais e reiniciar a avaliação. Deseja continuar?")) return;
+  limparEstadoSalvo();
+  state = { userInfo: { nome: "", email: "", tempo: "" }, respostas: {}, currentIndex: 0 };
+  document.getElementById("form-userinfo").reset();
+  showScreen("screen-landing");
+  initLandingResumeBanner();
+});
+
+/**
+ * Gera o PDF desenhando diretamente com jsPDF (texto + barras + imagem do radar).
+ * Evita capturar a página inteira em canvas (mais rápido e sem depender de libs extras).
+ */
+function baixarResultadoPDF() {
+  const r = ultimoResultado;
+  if (!r) return;
+
+  const NAVY = [10, 31, 61];
+  const BLUE = [47, 111, 237];
+  const TEXT = [16, 24, 40];
+  const MUTED = [90, 100, 114];
+  const TRACK = [226, 230, 238];
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("p", "mm", "a4");
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const marginX = 18;
+  let y;
+
+  doc.setFillColor(...NAVY);
+  doc.rect(0, 0, pageWidth, 26, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Diagnóstico de Carreira — ICOM TV", marginX, 16);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text("Time de Relacionamento", marginX, 22);
+
+  y = 38;
+  doc.setTextColor(...TEXT);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text(r.nome, marginX, y);
+  y += 9;
+
+  doc.setTextColor(...BLUE);
+  doc.setFontSize(13);
+  doc.text(`${r.cargoPrincipal.nome} — ${r.cargoPrincipal.percentual}%`, marginX, y);
+  y += 8;
+
+  let statusTexto;
+  if (!r.cargoProximo) {
+    statusTexto = "Perfil consolidado no maior nível do plano de carreira avaliado.";
+  } else if (r.statusTransicao === "transicao") {
+    statusTexto = `Em fase de transição para o próximo nível (${r.cargoProximo.nome}).`;
+  } else {
+    statusTexto = "Perfil consolidado neste nível.";
+  }
+  doc.setTextColor(...MUTED);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10.5);
+  doc.text(statusTexto, marginX, y);
+  y += 12;
+
+  // Radar chart (imagem gerada diretamente do canvas do Chart.js)
+  const imgSize = 82;
+  if (radarChartInstance) {
+    const chartImg = radarChartInstance.toBase64Image();
+    doc.addImage(chartImg, "PNG", marginX, y, imgSize, imgSize);
+  }
+
+  // Ranking por cargo, ao lado do radar
+  const rankX = marginX + imgSize + 12;
+  const barMaxWidth = pageWidth - rankX - marginX - 16;
+  let rankY = y + 4;
+  doc.setTextColor(...TEXT);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Ranking por Cargo", rankX, rankY);
+  rankY += 8;
+
+  r.ranking.forEach((cargo) => {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.5);
+    doc.setTextColor(...MUTED);
+    doc.text(cargo.nome, rankX, rankY);
+    doc.setFillColor(...TRACK);
+    doc.rect(rankX, rankY + 2, barMaxWidth, 2.6, "F");
+    doc.setFillColor(...BLUE);
+    doc.rect(rankX, rankY + 2, barMaxWidth * (cargo.percentual / 100), 2.6, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(...TEXT);
+    doc.text(`${cargo.percentual}%`, rankX, rankY + 8);
+    rankY += 14;
+  });
+
+  y = Math.max(y + imgSize, rankY) + 8;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(...TEXT);
+  doc.text("Resumo Personalizado", marginX, y);
+  y += 7;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(60, 68, 82);
+  const linhasResumo = doc.splitTextToSize(r.resumo.texto, pageWidth - marginX * 2);
+  linhasResumo.forEach((linha) => {
+    if (y > 280) { doc.addPage(); y = 20; }
+    doc.text(linha, marginX, y);
+    y += 5;
+  });
+  y += 6;
+
+  if (y > 265) { doc.addPage(); y = 20; }
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(...TEXT);
+  doc.text("Ações práticas para acelerar sua evolução", marginX, y);
+  y += 7;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(60, 68, 82);
+  r.resumo.acoes.forEach((acao) => {
+    const linhasAcao = doc.splitTextToSize(`•  ${acao}`, pageWidth - marginX * 2 - 4);
+    if (y > 280) { doc.addPage(); y = 20; }
+    linhasAcao.forEach((linha) => {
+      doc.text(linha, marginX + 2, y);
+      y += 5;
+    });
+    y += 2;
+  });
+
+  const nomeArquivo = `diagnostico-carreira-${(state.userInfo.nome || "resultado").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`;
+  doc.save(nomeArquivo);
+}
+
+document.getElementById("btn-download-pdf").addEventListener("click", () => {
+  const btn = document.getElementById("btn-download-pdf");
+  const textoOriginal = btn.textContent;
+  btn.textContent = "Gerando PDF...";
+  btn.disabled = true;
+  try {
+    baixarResultadoPDF();
+  } catch (err) {
+    alert("Não foi possível gerar o PDF. Tente novamente.");
+  } finally {
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+});
+
+// ---------------------------------------------------------------------
+// Inicialização
+// ---------------------------------------------------------------------
+
+initLandingResumeBanner();
+
+</script>
+</body>
+</html>

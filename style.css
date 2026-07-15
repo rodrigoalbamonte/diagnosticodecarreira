@@ -55,7 +55,7 @@ p { line-height: 1.6; }
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -64,7 +64,6 @@ p { line-height: 1.6; }
 .brand-mark-accent { color: #6fa2ff; }
 .brand-sep { opacity: 0.35; }
 .brand-title { font-weight: 600; font-size: 16px; opacity: 0.95; }
-.topbar-sub { margin-left: auto; font-size: 13px; opacity: 0.75; }
 
 /* ---------- Screens ---------- */
 .screen { display: none; padding: 56px 0 72px; animation: fadeIn 0.4s ease; }
@@ -324,11 +323,201 @@ p { line-height: 1.6; }
   .hero h1 { font-size: 30px; }
   .hero-facts { grid-template-columns: 1fr; }
   .result-grid { grid-template-columns: 1fr; }
-  .topbar-sub { margin-left: 0; }
+  .main-menu { margin-left: 0; width: 100%; justify-content: space-between; }
   .assessment-actions { flex-direction: column; align-items: stretch; }
   .assessment-actions .btn { width: 100%; }
   .form-actions { flex-direction: column-reverse; gap: 10px; }
   .form-actions .btn { width: 100%; }
   .result-actions { flex-direction: column; }
   .result-actions .btn { width: 100%; }
+}
+
+/* ---------- Main menu ---------- */
+.main-menu { display: flex; gap: 4px; margin-left: auto; }
+.menu-item {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.menu-item:hover { color: var(--white); background: rgba(255, 255, 255, 0.08); }
+.menu-item.active { color: var(--white); background: rgba(255, 255, 255, 0.16); }
+
+/* ---------- Home extras ---------- */
+.disclaimer {
+  background: var(--gray-50);
+  border-left: 3px solid var(--blue-accent);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 13.5px;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- Section heading (setor select) ---------- */
+.section-heading { text-align: center; max-width: 640px; margin: 0 auto 32px; }
+
+/* ---------- Setor cards ---------- */
+.setor-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+.setor-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.setor-card:not(.indisponivel):hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.setor-card.indisponivel { opacity: 0.6; }
+.setor-card-icone { font-size: 36px; display: block; margin-bottom: 10px; }
+.setor-card h3 { font-size: 16px; margin-bottom: 6px; }
+.setor-card p { font-size: 13.5px; color: var(--text-muted); min-height: 40px; margin-bottom: 16px; }
+.setor-card .btn { width: 100%; }
+
+/* ---------- Próximos passos (resultado) ---------- */
+.proximos-passos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.pp-heading { font-size: 13.5px; margin-bottom: 10px; }
+.pp-necessaria { color: #b3261e; }
+.pp-desenvolvimento { color: var(--warning); }
+.pp-consolidada { color: var(--success); }
+.pp-chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.pp-materiais-vazio { font-size: 13.5px; margin-top: 6px; }
+
+.chip {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.chip-necessaria { background: #fbe4e2; color: #b3261e; }
+.chip-desenvolvimento { background: var(--warning-bg); color: var(--warning); }
+.chip-consolidada { background: var(--success-bg); color: var(--success); }
+.chip-neutral { background: var(--blue-accent-light); color: var(--blue-accent); }
+
+/* ---------- Biblioteca: visão do setor ---------- */
+.btn-back { padding-left: 0; margin-bottom: 14px; }
+.setor-overview-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.setor-overview-icone { font-size: 40px; }
+.overview-cols {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  margin: 14px 0;
+}
+
+/* ---------- Trilha de crescimento ---------- */
+.trilha { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
+.trilha-node { display: flex; gap: 16px; position: relative; }
+.trilha-node:not(:last-child) { padding-bottom: 22px; }
+.trilha-node:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-200);
+}
+.trilha-node-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--navy-900);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.trilha-node-card {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  flex: 1;
+}
+.trilha-node-card h4 { font-size: 16px; margin-bottom: 6px; }
+.trilha-node-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px; }
+.trilha-badge {
+  display: inline-block;
+  background: var(--blue-accent-light);
+  color: var(--blue-accent);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.trilha-badge-principal { background: var(--navy-900); color: var(--white); }
+
+/* ---------- Modal: detalhe do cargo ---------- */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 31, 61, 0.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+.modal-box {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--gray-100);
+  border: none;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.modal-close:hover { background: var(--gray-200); }
+.modal-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 16px; }
+.modal-aderencia {
+  background: var(--blue-accent-light);
+  color: var(--navy-900);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.modal-list { padding-left: 20px; margin: 8px 0 18px; }
+.modal-list li { font-size: 14.5px; margin-bottom: 6px; color: var(--text); }
+.indicadores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+.indicadores-grid h5 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blue-accent); margin-bottom: 8px; }
+.indicadores-grid .modal-list { margin: 0; }
+.indicadores-grid .modal-list li { font-size: 13px; }
+
+@media (max-width: 760px) {
+  .main-menu { gap: 0; }
+  .menu-item { padding: 6px 10px; font-size: 12.5px; }
+  .proximos-passos-grid { grid-template-columns: 1fr; }
+  .overview-cols { grid-template-columns: 1fr; }
+  .indicadores-grid { grid-template-columns: 1fr; }
+  .modal-box { padding: 22px; max-height: 90vh; }
+  .trilha-node { gap: 10px; }
 }

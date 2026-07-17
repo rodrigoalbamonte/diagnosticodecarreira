@@ -24,8 +24,8 @@ const SETORES_REGISTRY = [
     id: "sucesso-cliente",
     nome: "Sucesso do Cliente",
     icone: "🌟",
-    descricaoCurta: "Em breve — plano de carreira em desenvolvimento.",
-    disponivel: false,
+    descricaoCurta: "Acompanhamento da jornada do cliente pós-venda, retenção e prevenção de cancelamentos.",
+    disponivel: true,
   },
   {
     id: "suporte-tecnico",
@@ -38,29 +38,29 @@ const SETORES_REGISTRY = [
     id: "audiovisual",
     nome: "Audiovisual",
     icone: "🎬",
-    descricaoCurta: "Em breve — plano de carreira em desenvolvimento.",
-    disponivel: false,
+    descricaoCurta: "Produção, edição e finalização de vídeos institucionais e promocionais para as TVs dos clientes.",
+    disponivel: true,
   },
   {
     id: "criacao",
     nome: "Criação",
     icone: "🎨",
-    descricaoCurta: "Em breve — plano de carreira em desenvolvimento.",
-    disponivel: false,
+    descricaoCurta: "Design gráfico e identidade visual das peças exibidas nas TVs dos clientes ICOM TV.",
+    disponivel: true,
   },
   {
     id: "comercial",
     nome: "Comercial",
     icone: "📈",
-    descricaoCurta: "Em breve — plano de carreira em desenvolvimento.",
-    disponivel: false,
+    descricaoCurta: "Prospecção, negociação consultiva e fechamento de novos clientes para a ICOM TV.",
+    disponivel: true,
   },
   {
     id: "producao",
     nome: "Produção",
     icone: "🎞️",
-    descricaoCurta: "Em breve — plano de carreira em desenvolvimento.",
-    disponivel: false,
+    descricaoCurta: "Criação, publicação e manutenção das programações exibidas nas TVs dos clientes ICOM TV.",
+    disponivel: true,
   },
   {
     id: "social-media",
@@ -78,6 +78,16 @@ function getSetorDados(id) {
       return SETOR_RELACIONAMENTO;
     case "suporte-tecnico":
       return SETOR_SUPORTE_TECNICO;
+    case "producao":
+      return SETOR_PRODUCAO;
+    case "criacao":
+      return SETOR_CRIACAO;
+    case "audiovisual":
+      return SETOR_AUDIOVISUAL;
+    case "sucesso-cliente":
+      return SETOR_SUCESSO_CLIENTE;
+    case "comercial":
+      return SETOR_COMERCIAL;
     default:
       return null;
   }

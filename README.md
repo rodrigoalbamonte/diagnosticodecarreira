@@ -20,7 +20,12 @@ site/
 └── data/
     ├── setores.js         registro de todos os setores (disponíveis e "em breve")
     ├── relacionamento.js  cargos, perguntas, pesos e biblioteca do setor Relacionamento
-    └── suporte-tecnico.js cargos, perguntas, pesos e biblioteca do setor Suporte Técnico
+    ├── suporte-tecnico.js cargos, perguntas, pesos e biblioteca do setor Suporte Técnico
+    ├── producao.js        cargos, perguntas, pesos e biblioteca do setor Produção
+    ├── criacao.js         cargos, perguntas, pesos e biblioteca do setor Criação
+    ├── audiovisual.js     cargos, perguntas, pesos e biblioteca do setor Audiovisual
+    ├── sucesso-cliente.js cargos, perguntas, pesos e biblioteca do setor Sucesso do Cliente
+    └── comercial.js       cargos, perguntas, pesos e biblioteca do setor Comercial
 ```
 
 Não há passo de build: `index.html` carrega os arquivos `.js`/`.css` diretamente. Basta servir a
@@ -113,6 +118,22 @@ powershell -ExecutionPolicy Bypass -File serve.ps1   # sobe em http://localhost:
   sem nível Coordenador). Os cargos foram renomeados de "Consultor"/"Supervisor" para "Analista de
   Suporte Técnico"/"Supervisor de Suporte Técnico" por decisão do gestor da área — o conteúdo
   (objetivo, atividades, desafios, formação, tempo mínimo) foi transcrito fielmente da planilha.
-- **Demais setores** (Sucesso do Cliente, Audiovisual, Criação, Comercial, Produção, Social Media):
-  ainda não têm planilha de plano de carreira — aparecem como "Em breve" até que o conteúdo seja
-  enviado.
+- **Produção**: "Competências Plano de Carreira produção.xlsx" (4 cargos: Analista de Produção
+  Jr/Pleno/Sênior e Supervisor de Produção — sem nível Coordenador). O Supervisor desta planilha
+  lidera de forma integrada as equipes de Produção e Suporte Técnico, conforme descrito na própria
+  planilha de origem.
+- **Criação**: "Competências Plano de Carreira criacao designer.xlsx" (5 cargos: Designer Gráfico
+  Jr/Pleno/Sênior, Supervisor de Criação e Coordenador de Criação).
+- **Audiovisual**: "Competências Plano de Carreira audiovisual.xlsx" (5 cargos: Analista de
+  Audiovisual Jr/Pleno/Sênior, Supervisor de Audiovisual e Coordenador de Criação). O cargo de
+  Coordenador de Criação é **compartilhado** entre Criação e Audiovisual — a planilha de origem
+  descreve um único coordenador estratégico responsável pelas duas áreas ao mesmo tempo, por isso o
+  mesmo conteúdo (objetivo, competências, indicadores) foi replicado em `data/criacao.js` e
+  `data/audiovisual.js`. Se esse cargo mudar no futuro, atualize os dois arquivos.
+- **Sucesso do Cliente**: "Competências Plano de Carreira sucesso ao cliente.xlsx" (4 cargos:
+  Analista de Sucesso do Cliente Jr/Pleno/Sênior e Supervisor de Sucesso do Cliente — sem nível
+  Coordenador).
+- **Comercial**: "Competências Plano de Carreira comercial.xlsx" (4 cargos: Analista Comercial
+  Jr/Pleno/Sênior e Supervisor Comercial — sem nível Coordenador).
+- **Demais setores** (Social Media): ainda não têm planilha de plano de carreira — aparecem como
+  "Em breve" até que o conteúdo seja enviado.

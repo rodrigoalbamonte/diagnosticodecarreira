@@ -359,20 +359,18 @@ function renderResultado(resultado) {
     },
   });
 
-  // Ranking
-  const rankingEl = document.getElementById("ranking-list");
-  rankingEl.innerHTML = "";
-  resultado.ranking.forEach((cargo) => {
-    const isMain = cargo.id === resultado.cargoPrincipal.id;
-    const item = document.createElement("div");
-    item.className = "ranking-item" + (isMain ? " is-main" : "");
-    item.innerHTML = `
-      <span class="ranking-name">${cargo.nome}</span>
-      <span class="ranking-track"><span class="ranking-fill" style="width:${cargo.percentual}%"></span></span>
-      <span class="ranking-value">${cargo.percentual}%</span>
-    `;
-    rankingEl.appendChild(item);
-  });
+  // Progresso — mostra apenas o cargo do resultado (já exibido no cabeçalho) e o quanto
+  // falta para o próximo nível, sem listar o percentual de todos os cargos do setor.
+  const gapEl = document.getElementById("progresso-gap");
+  if (resultado.cargoProximo) {
+    const faltam = Math.round((100 - resultado.cargoProximo.percentual) * 10) / 10;
+    gapEl.innerHTML =
+      `Você já demonstra <strong>${resultado.cargoProximo.percentual}%</strong> do perfil esperado para ` +
+      `<strong>${resultado.cargoProximo.nome}</strong>. Faltam <strong>${faltam} pontos percentuais</strong> ` +
+      `para completar o perfil desse próximo nível.`;
+  } else {
+    gapEl.innerHTML = `Você já está no <strong>maior nível</strong> do plano de carreira deste setor.`;
+  }
 
   // Resumo + ações
   document.getElementById("resumo-texto").textContent = resultado.resumo.texto;
@@ -396,17 +394,22 @@ function renderResultado(resultado) {
   document.getElementById("pp-consolidadas").innerHTML =
     consolidadas.length ? consolidadas.map((c) => chip(`${c.label} (${c.valor}%)`, "chip-consolidada")).join("") : `<span class="muted">—</span>`;
 
-  // Experiências recomendadas — derivadas das responsabilidades do próximo cargo
+  // O que falta, segundo o plano de carreira, para o próximo nível — lista completa das
+  // competências esperadas e responsabilidades do próximo cargo (dados reais do setor).
   const expEl = document.getElementById("pp-experiencias");
+  const faltaTituloEl = document.getElementById("pp-falta-titulo");
   expEl.innerHTML = "";
   if (resultado.cargoProximo) {
+    faltaTituloEl.textContent = `O que falta, de acordo com o plano de carreira, para chegar a ${resultado.cargoProximo.nome}`;
     const cargoProximoCompleto = getSetorDados(resultado.setorId).cargos.find((c) => c.id === resultado.cargoProximo.id);
-    cargoProximoCompleto.responsabilidades.slice(0, 3).forEach((r) => {
+    const itensFalta = [...cargoProximoCompleto.competenciasEsperadas, ...cargoProximoCompleto.responsabilidades];
+    itensFalta.forEach((item) => {
       const li = document.createElement("li");
-      li.textContent = `Buscar oportunidades de: ${r}`;
+      li.textContent = item;
       expEl.appendChild(li);
     });
   } else {
+    faltaTituloEl.textContent = "Seu nível no plano de carreira";
     const li = document.createElement("li");
     li.textContent = "Você já está no maior nível deste plano de carreira — foque em ampliar o impacto das suas responsabilidades atuais.";
     expEl.appendChild(li);
@@ -446,6 +449,33 @@ document.getElementById("btn-download-pdf").addEventListener("click", () => {
  * Gera o PDF desenhando diretamente com jsPDF (texto + barras + imagem do radar).
  * Evita capturar a página inteira em canvas (mais rápido e sem depender de libs extras).
  */
+/** Título de seção em negrito, com quebra de página se necessário. Retorna o novo y. */
+function pdfSectionTitle(doc, texto, marginX, y, TEXT) {
+  if (y > 275) { doc.addPage(); y = 20; }
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(...TEXT);
+  doc.text(texto, marginX, y);
+  return y + 7;
+}
+
+/** Lista com marcadores, quebrando linha e página conforme necessário. Retorna o novo y. */
+function pdfBulletList(doc, itens, marginX, pageWidth, y, corTexto) {
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(...corTexto);
+  itens.forEach((item) => {
+    const linhas = doc.splitTextToSize(`•  ${item}`, pageWidth - marginX * 2 - 4);
+    linhas.forEach((linha) => {
+      if (y > 280) { doc.addPage(); y = 20; }
+      doc.text(linha, marginX + 2, y);
+      y += 5;
+    });
+    y += 2;
+  });
+  return y;
+}
+
 function baixarResultadoPDF() {
   const r = ultimoResultado;
   if (!r) return;
@@ -455,6 +485,10 @@ function baixarResultadoPDF() {
   const TEXT = [16, 24, 40];
   const MUTED = [90, 100, 114];
   const TRACK = [226, 230, 238];
+  const CORPO = [60, 68, 82];
+  const NECESSARIA = [179, 38, 30];
+  const DESENVOLVIMENTO = [185, 119, 14];
+  const CONSOLIDADA = [28, 154, 108];
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF("p", "mm", "a4");
@@ -504,32 +538,30 @@ function baixarResultadoPDF() {
     doc.addImage(chartImg, "PNG", marginX, y, imgSize, imgSize);
   }
 
-  const rankX = marginX + imgSize + 12;
-  const barMaxWidth = pageWidth - rankX - marginX - 16;
-  let rankY = y + 4;
+  // Progresso — não lista o percentual de todos os cargos, só o quanto falta para o próximo nível.
+  const gapX = marginX + imgSize + 12;
+  const gapWidth = pageWidth - gapX - marginX;
+  let gapY = y + 4;
   doc.setTextColor(...TEXT);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
-  doc.text("Ranking por Cargo", rankX, rankY);
-  rankY += 8;
+  doc.text("Seu Progresso", gapX, gapY);
+  gapY += 8;
 
-  r.ranking.forEach((cargo) => {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9.5);
-    doc.setTextColor(...MUTED);
-    doc.text(cargo.nome, rankX, rankY);
-    doc.setFillColor(...TRACK);
-    doc.rect(rankX, rankY + 2, barMaxWidth, 2.6, "F");
-    doc.setFillColor(...BLUE);
-    doc.rect(rankX, rankY + 2, barMaxWidth * (cargo.percentual / 100), 2.6, "F");
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(9.5);
-    doc.setTextColor(...TEXT);
-    doc.text(`${cargo.percentual}%`, rankX, rankY + 8);
-    rankY += 14;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9.5);
+  doc.setTextColor(...CORPO);
+  const textoGap = r.cargoProximo
+    ? `Você já demonstra ${r.cargoProximo.percentual}% do perfil esperado para ${r.cargoProximo.nome}. `
+      + `Faltam ${Math.round((100 - r.cargoProximo.percentual) * 10) / 10} pontos percentuais para completar o perfil desse próximo nível.`
+    : "Você já está no maior nível do plano de carreira deste setor.";
+  const linhasGap = doc.splitTextToSize(textoGap, gapWidth);
+  linhasGap.forEach((linha) => {
+    doc.text(linha, gapX, gapY);
+    gapY += 5;
   });
 
-  y = Math.max(y + imgSize, rankY) + 8;
+  y = Math.max(y + imgSize, gapY) + 8;
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
@@ -548,24 +580,91 @@ function baixarResultadoPDF() {
   });
   y += 6;
 
-  if (y > 265) { doc.addPage(); y = 20; }
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(...TEXT);
-  doc.text("Ações práticas para acelerar sua evolução", marginX, y);
-  y += 7;
+  y = pdfSectionTitle(doc, "Ações práticas para acelerar sua evolução", marginX, y, TEXT);
+  y = pdfBulletList(doc, r.resumo.acoes, marginX, pageWidth, y, CORPO);
+  y += 4;
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(60, 68, 82);
-  r.resumo.acoes.forEach((acao) => {
-    const linhasAcao = doc.splitTextToSize(`•  ${acao}`, pageWidth - marginX * 2 - 4);
+  // Próximos Passos — mesmo conteúdo exibido na tela de resultado
+  y = pdfSectionTitle(doc, "Próximos Passos", marginX, y, TEXT);
+
+  const necessarias = r.competencias.filter((c) => c.status === "necessaria");
+  const desenvolvimento = r.competencias.filter((c) => c.status === "desenvolvimento");
+  const consolidadas = r.competencias.filter((c) => c.status === "consolidada");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(...NECESSARIA);
+  if (y > 280) { doc.addPage(); y = 20; }
+  doc.text("Competências a fortalecer", marginX, y);
+  y += 6;
+  y = pdfBulletList(
+    doc,
+    necessarias.length ? necessarias.map((c) => `${c.label} (${c.valor}%)`) : ["Nenhuma competência crítica identificada."],
+    marginX, pageWidth, y, CORPO
+  );
+  y += 3;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(...DESENVOLVIMENTO);
+  if (y > 280) { doc.addPage(); y = 20; }
+  doc.text("Competências próximas do esperado", marginX, y);
+  y += 6;
+  y = pdfBulletList(
+    doc,
+    desenvolvimento.length ? desenvolvimento.map((c) => `${c.label} (${c.valor}%)`) : ["—"],
+    marginX, pageWidth, y, CORPO
+  );
+  y += 3;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(...CONSOLIDADA);
+  if (y > 280) { doc.addPage(); y = 20; }
+  doc.text("Competências consolidadas", marginX, y);
+  y += 6;
+  y = pdfBulletList(
+    doc,
+    consolidadas.length ? consolidadas.map((c) => `${c.label} (${c.valor}%)`) : ["—"],
+    marginX, pageWidth, y, CORPO
+  );
+  y += 4;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(...TEXT);
+  if (y > 280) { doc.addPage(); y = 20; }
+  const tituloFalta = r.cargoProximo
+    ? `O que falta, de acordo com o plano de carreira, para chegar a ${r.cargoProximo.nome}`
+    : "Seu nível no plano de carreira";
+  const linhasTituloFalta = doc.splitTextToSize(tituloFalta, pageWidth - marginX * 2);
+  linhasTituloFalta.forEach((linha) => {
+    doc.text(linha, marginX, y);
+    y += 6;
+  });
+  const itensFalta = r.cargoProximo
+    ? [...r.cargoProximo.competenciasEsperadas, ...r.cargoProximo.responsabilidades]
+    : ["Você já está no maior nível deste plano de carreira — foque em ampliar o impacto das suas responsabilidades atuais."];
+  y = pdfBulletList(doc, itensFalta, marginX, pageWidth, y, CORPO);
+  y += 4;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(...TEXT);
+  if (y > 280) { doc.addPage(); y = 20; }
+  doc.text("Materiais de desenvolvimento recomendados", marginX, y);
+  y += 6;
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(9.5);
+  doc.setTextColor(...MUTED);
+  const linhasMateriais = doc.splitTextToSize(
+    "A ICOM TV ainda não cadastrou cursos, leituras ou treinamentos específicos para estas competências — converse com sua liderança para indicações personalizadas.",
+    pageWidth - marginX * 2
+  );
+  linhasMateriais.forEach((linha) => {
     if (y > 280) { doc.addPage(); y = 20; }
-    linhasAcao.forEach((linha) => {
-      doc.text(linha, marginX + 2, y);
-      y += 5;
-    });
-    y += 2;
+    doc.text(linha, marginX, y);
+    y += 5;
   });
 
   const nomeArquivo = `assessment-carreira-${(state.userInfo.nome || "resultado").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`;
@@ -658,6 +757,7 @@ function openCargoModal(setorId, cargoId) {
     : `<h3>Competências e experiência esperada</h3><p class="muted">Não especificado separadamente — veja a formação acadêmica exigida e o objetivo do cargo acima.</p>`;
 
   const conhecimentosHtml = secaoSeNaoVazia("Conhecimentos técnicos", cargo.conhecimentosTecnicos, (c) => `<li>${c}</li>`);
+  const comportamentosHtml = secaoSeNaoVazia("Comportamentos esperados", cargo.comportamentosEsperados, (c) => `<li>${c}</li>`);
 
   const indicadoresHtml = `
     <h3>Indicadores de desempenho</h3>
@@ -700,6 +800,8 @@ function openCargoModal(setorId, cargoId) {
     <ul class="modal-list">${cargo.responsabilidades.map((r) => `<li>${r}</li>`).join("")}</ul>
 
     ${conhecimentosHtml}
+
+    ${comportamentosHtml}
 
     ${indicadoresHtml}
 

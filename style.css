@@ -297,6 +297,8 @@ p { line-height: 1.6; }
 .ranking-item .ranking-value { width: 48px; text-align: right; font-size: 13.5px; font-weight: 700; color: var(--navy-900); flex-shrink: 0; }
 
 .resumo-texto { white-space: pre-line; font-size: 15px; color: var(--text); }
+.progresso-gap { font-size: 15px; line-height: 1.6; color: var(--text); }
+.progresso-gap strong { color: var(--blue-accent); }
 .resumo-cols { margin-top: 14px; }
 .resumo-acoes { padding-left: 20px; margin: 8px 0 0; }
 .resumo-acoes li { margin-bottom: 8px; font-size: 14.5px; color: var(--text); }
